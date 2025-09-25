@@ -1,0 +1,30 @@
+bory{
+    font-family: sans-serif;
+    margin: 2em;
+
+}
+
+.container{
+    font-family: sans-serif;
+    max-width: 800px;
+    margin:auto;
+    padding: 2em;
+}
+
+input, textarea{
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border-radius: 10px;
+}
+
+button{
+    background-color: #1b314b;
+    color: white;
+    padding: 0.7em 1em;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+
+}
+

@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = '30042007'
 DB_USER = 'postgres'
 DB_PASSWORD = '30042007'
 DB_HOST = 'localhost'
-DB_NAME = 'py_estoque_3a.db'
+DB_NAME = 'py_estoque_3a'
 DB_PORT = '5432'
 # URL-encode A SENHA PARA GARANTIR QUE CARACTERES ESPECIAIS SEJAM TRATADOS CORRETAMENTE
 ENCODED_DB_PASSWORD = quote_plus(DB_PASSWORD)
@@ -45,7 +45,7 @@ def query_db(query, args=(), one=False):
     db = get_db()
     cur = db.cursor()
     cur.execute(query, args)
-    db.commit()
+    #db.commit()
     rv = cur.fetchall()
     cur.close
     return (rv[0] if rv else None) if one else rv
@@ -81,7 +81,7 @@ def home():
     return redirect(url_for('autenticacao'))
 
 
-@app.route('/autenticacao', method=['GET', 'POST'])
+@app.route('/autenticacao', methods=['GET', 'POST'])
 def autenticacao():
     if request.method == 'POST':
         email = request.form['email']
@@ -97,7 +97,7 @@ def autenticacao():
     return render_template('autenticacao.html')
 
 
-@app.route('/cadastrar_usuario', method=['GET', 'POST'])
+@app.route('/cadastrar_usuario', methods=['GET', 'POST'])
 def cadastro_usuario():
     if request.method == 'POST':
         nome = request.form['nome']
@@ -110,7 +110,7 @@ def cadastro_usuario():
         if usuario_existente:
             return render_template('autenticacao.html', erro='E-mail já cadastrado. ')
 
-        senha_hash = generate_password_hash(senha, method='pbkdf2:sha256')
+        senha_hash = generate_password_hash(senha, methods='pbkdf2:sha256')
         execute_db('INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s ,%s)',(nome, email, senha_hash))
         return redirect(url_for(autenticacao))
     return render_template('cadastro_usuario.html')
@@ -123,7 +123,7 @@ def logout():
     return redirect(url_for(autenticacao))
 
 
-@app.route('/cadastro_protudo', method=['GET', 'POST'])
+@app.route('/cadastro_protudo', methods=['GET', 'POST'])
 @login_required
 def cadastro_produto():
     if request.method == 'POST':
@@ -154,7 +154,7 @@ def cadastro_produto():
     return render_template('cadastro_produto.html', produtos=produtos, usuario=session.get('usuario_nome'))
 
 
-@app.route('/saida_produto/<int:produto_id>', method=['POST'])
+@app.route('/saida_produto/<int:produto_id>', methods=['POST'])
 @login_required
 def saida_produto(produto_id):
     produto = query_db('SELECT * FROM produton WHERE id = %s',(produto_id,), one=True)
