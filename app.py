@@ -7,11 +7,11 @@ from functools import wraps
 
 # configurar a aplicação
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '30042007'
+app.config['SECRET_KEY'] = 'wcc@2023'
 
 # CONFIGURAÇÃO DO BANCO DE DADOS
 DB_USER = 'postgres'
-DB_PASSWORD = '30042007'
+DB_PASSWORD = 'wcc@2023'
 DB_HOST = 'localhost'
 DB_NAME = 'py_estoque_3a'
 DB_PORT = '5432'
