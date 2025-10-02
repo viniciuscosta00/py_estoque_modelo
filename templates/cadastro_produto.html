@@ -18,7 +18,7 @@
 
         <div class="form-container">
             <h2>Cadastrar/Adicionar Produto</h2>
-            <form action="{{ url_for('cadastro_produto') }}" mathod="post"></form>
+            <form action="{{ url_for('cadastro_produto') }}" method="post">
             <label for="nome">Nome do Produto:</label>
             <input type="text" id="nome" name="nome" required>
 
@@ -31,8 +31,8 @@
             <label for="preco">Preço</label>
             <input type="number" id="preco" name="preco" step="0.01" required>
 
-            <label for="quatidade_minima">Quantidade Mínima para Alerta:</label>
-            <input type="number" id="quatidade_minima" name="quatidade_minima" value="1" min="1" required>
+            <label for="quantidade_minima">Quantidade Mínima para Alerta:</label>
+            <input type="number" id="quantidade_minima" name="quantidade_minima" value="1" min="1" required>
             <button type="submit">Cadastrar Produtos</button>
         </form>
     </div>
@@ -54,11 +54,11 @@
             </head>
             <tbody>
                 {% for produto in produtos %}
-                    <tr class="{% if produto.quantidade <= produto.quatidade_minima %} Alerta-estoque-baixo {% endif %}">
+                    <tr class="{% if produto.quantidade <= produto.quantidade_minima %} Alerta-estoque-baixo {% endif %}">
                         <td>{{produto.nome}}</td>
                         <td>{{produto.descricao}}</td>
                         <td>{{produto.quantidade}}</td>
-                        <td>{{produto.quatidade_minima}}</td>
+                        <td>{{produto.quantidade_minima}}</td>
                         <td>{{ "%.2f"|format(produto.preco) }}</td>
                             <form action="{{ url_for('saida_produto', produto_id=produto.id) }}" method="post">
                                 <input type="number" name="quantidade_saida" value="1" min="1" max="{{produto.quantidade}}" style="width: 50px;">
